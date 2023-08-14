@@ -2,11 +2,10 @@
   <VForm @onSendForm="send" :data="formElements" />
 </template>
 
-<script setup lang="ts">
+<script setup>
 import VForm from "./components/VForm.vue";
-import { TFormElement } from "./types/form";
 
-const formElements: TFormElement[] = [
+const formElements = [
   {
     name: "lastname",
     placeholder: "Фамилия",
@@ -34,7 +33,7 @@ const formElements: TFormElement[] = [
   },
 ];
 
-function send(e: object) {
+function send(e) {
   alert(JSON.stringify({ ...e }));
 }
 </script>

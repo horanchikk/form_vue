@@ -1,17 +1,11 @@
 <template>
-  <button>
+  <button class="custom-button">
     <slot />
   </button>
 </template>
 
-<script setup>
-const props = defineProps({
-  text: String,
-});
-</script>
-
-<style scoped>
-button {
+<style>
+.custom-button {
   color: black;
   padding: 5px 10px 5px 10px;
   border: 1px solid deepskyblue;
@@ -21,11 +15,11 @@ button {
   transition: all 200ms ease;
 }
 
-button:hover {
+.custom-button:hover {
   border-color: dodgerblue;
 }
 
-button:active {
+.custom-button:active {
   border-color: blue;
 }
 </style>

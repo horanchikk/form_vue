@@ -1,16 +1,20 @@
 <template>
-  <div>
+  <div class="custom-input">
     <input
+      class="custom-input__element"
       @input="send"
+      v-model="data"
       :type="props.type"
       :placeholder="props.placeholder"
       :id="props.id"
       v-if="props.type !== 'checkbox'"
-      :class="{ isEmpty: isEmpty }"
+      :class="{ 'custom-input__isEmpty': isEmpty }"
       required
     />
     <input
+      class="custom-input__element custom-input__checkbox"
       @change="send"
+      v-model="data"
       :type="props.type"
       :placeholder="props.placeholder"
       :id="props.id"
@@ -18,6 +22,7 @@
       required
     />
     <label
+      class="custom-input__label"
       :for="props.id"
       v-if="props.type === 'checkbox' || props.type === 'date'"
       >{{ props.placeholder }}</label
@@ -36,15 +41,21 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 const isEmpty = ref(true);
+const data = ref();
 
-function send(e) {
-  isEmpty.value = !e.target.value;
-  emit("update:modelValue", e.target.value);
+function send() {
+  isEmpty.value = !data.value;
+  emit("update:modelValue", data.value);
 }
 </script>
 
-<style scoped lang="scss">
-input {
+<style>
+.custom-input {
+  display: flex;
+  gap: 5px;
+}
+
+.custom-input__element {
   width: 100%;
   border: 1px solid rgba(0, 150, 0, 0.5);
   padding: 10px;
@@ -52,23 +63,18 @@ input {
   border-radius: 3px;
 
   transition: all 200ms ease;
-
-  &[type="checkbox"] {
-    width: 15px;
-    height: 15px;
-  }
-
-  &:focus {
-    font-size: 15px;
-  }
 }
 
-.isEmpty {
+.custom-input__element:focus {
+  font-size: 15px;
+}
+
+.custom-input__checkbox {
+  width: 15px;
+  height: 15px;
+}
+
+.custom-input__isEmpty {
   border: 1px solid rgba(255, 0, 0, 0.5);
-}
-
-div {
-  display: flex;
-  gap: 5px;
 }
 </style>

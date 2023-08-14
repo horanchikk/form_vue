@@ -1,6 +1,6 @@
 <template>
-  <form @submit.prevent="emitForm">
-    <h2>Введите данные</h2>
+  <form @submit.prevent="emitForm" class="custom-form">
+    <p class="custom-form__title">Введите данные</p>
     <VInput
       v-for="el in props.data"
       :type="el.type"
@@ -12,17 +12,16 @@
   </form>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { reactive } from "vue";
 
 import VButton from "./VButton.vue";
 import VInput from "./VInput.vue";
-import { TFormElement } from "../types/form";
 
 const emit = defineEmits(["onSendForm"]);
 
 const props = defineProps({
-  data: Array<TFormElement>,
+  data: Array,
 });
 
 const formData = reactive({});
@@ -32,8 +31,8 @@ function emitForm() {
 }
 </script>
 
-<style scoped>
-form {
+<style>
+.custom-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -45,7 +44,8 @@ form {
   font-size: 15px;
 }
 
-h2 {
+.custom-form__title {
+  font-size: 23px;
   text-align: center;
   cursor: default;
 }
